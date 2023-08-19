@@ -270,6 +270,20 @@ public class Main extends JFrame {
             }
         });
 
+        JButton deleteButton = new JButton("Delete House");
+        deleteButton.setBackground(Color.RED);
+        deleteButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveData.data.houses.remove(houseData);
+                saveData.write();
+
+                tenantsPanel.setVisible(false);
+                cp.remove(tenantsPanel);
+                showData();
+            }
+        });
+
         JButton addButton = new JButton("Add Tenant");
         addButton.addActionListener(new AbstractAction() {
             @Override
@@ -301,11 +315,17 @@ public class Main extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 1;
-        tenantsPanel.add(addButton, gbc);
+        tenantsPanel.add(deleteButton, gbc);
 
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
+        gbc.gridy = 1;
+        tenantsPanel.add(addButton, gbc);
+
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 2;
         gbc.gridy = 1;
         tenantsPanel.add(selectButton, gbc);
 
@@ -492,6 +512,20 @@ public class Main extends JFrame {
             }
         });
 
+        JButton deleteButton = new JButton("Delete Tenant");
+        deleteButton.setBackground(Color.RED);
+        deleteButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                houseData.tenants.remove(tenant);
+                saveData.write();
+
+                tenantPanel.setVisible(false);
+                cp.remove(tenantPanel);
+                showHouse(houseData);
+            }
+        });
+
         JLabel infoLabel = new JLabel("Use Negative for increasing money.");
         infoLabel.setFont(new Font("default", Font.PLAIN, getWidth() / 24));
         System.out.println(getWidth());
@@ -547,6 +581,13 @@ public class Main extends JFrame {
         gbc.gridx = 2;
         gbc.gridy = 6;
         tenantPanel.add(payedButton, gbc);
+
+        gbc.gridheight = 1;
+        gbc.gridwidth = 3;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        tenantPanel.add(deleteButton, gbc);
 
         gbc.gridwidth = 3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
